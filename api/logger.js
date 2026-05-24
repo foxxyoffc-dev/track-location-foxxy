@@ -1,11 +1,11 @@
 // api/logger.js
 export default function handler(req, res) {
+    const { lat, lon, method } = req.query;
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    const userAgent = req.headers['user-agent'];
-    const { lat, lon } = req.query;
+    const ua = req.headers['user-agent'];
 
-    console.log(`[!] Data Masuk: IP=${ip}, Loc=${lat},${lon}, Device=${userAgent}`);
-    
-    // Status 200 agar client tahu request berhasil
-    res.status(200).json({ status: "success" });
+    // Data ini akan muncul di tab "Logs" pada dashboard Vercel Anda
+    console.log(`[!] PENTEST LOG | Method: ${method} | IP: ${ip} | Coord: ${lat},${lon} | Device: ${ua}`);
+
+    res.status(200).json({ status: "ok" });
 }
